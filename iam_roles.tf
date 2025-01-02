@@ -46,6 +46,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_logging_attachment" {
 }
 
 # IAM Role for CodeDeploy
+# IAM Role for CodeDeploy
 resource "aws_iam_role" "codedeploy" {
   name               = "codedeploy-role"
   assume_role_policy = jsonencode({
@@ -61,6 +62,29 @@ resource "aws_iam_role" "codedeploy" {
     ]
   })
 }
+
+# IAM Policy for full S3 access
+resource "aws_iam_policy" "s3_full_access" {
+  name        = "s3-full-access-policy"
+  description = "Policy to provide full access to S3 for the CodeDeploy role"
+  policy      = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "s3:*"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+# Attach the policy to the role
+resource "aws_iam_role_policy_attachment" "codedeploy_s3_attachment" {
+  role       = aws_iam_role.codedeploy.name
+  policy_arn = aws_iam_policy.s3_full_access.arn
+}
+
 
 # Custom inline policy for CodeDeploy to access necessary services
 resource "aws_iam_policy" "custom_codedeploy_policy" {

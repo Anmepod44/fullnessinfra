@@ -131,7 +131,7 @@ variable "ecs_task_execution_role_name" {
 variable "ecs_container_port" {
   description = "Port used by the container within the ECS task"
   type        = number
-  default     = 3001
+  default     = 3000
 }
 
 variable "ecs_log_group_name" {

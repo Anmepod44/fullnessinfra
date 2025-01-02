@@ -20,10 +20,11 @@ resource "aws_lb" "backend_lb" {
 # Rename the existing HTTP listener on port 80 to `l_80_redirect`
 
 #Frontend 80
-resource "aws_alb_listener" "l_80_redirect" {
+resource "aws_alb_listener" "l_80" {
   load_balancer_arn = aws_lb.app_lb.arn
   port              = 80
   protocol          = "HTTP"
+
 
   default_action {
     type             = "forward"
@@ -84,13 +85,13 @@ resource "aws_alb_listener" "backend_8080" {
   }
 }
 # backend 80
-resource "aws_alb_listener" "l_80_backend_redirect" {
+resource "aws_alb_listener" "backend_80" {
   load_balancer_arn = aws_lb.backend_lb.arn
   port              = 80
   protocol          = "HTTP"
   
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.tg[0].arn
+    target_group_arn = aws_lb_target_group.backend[0].arn
   }
 }

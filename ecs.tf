@@ -26,7 +26,7 @@ resource "aws_ecs_service" "frontend" {
   load_balancer {
     target_group_arn = aws_lb_target_group.tg[0].arn  # First target group for port 80
     container_name   = "app"
-    container_port   = 3001
+    container_port   = 3000
   }
 
 
@@ -140,7 +140,7 @@ data "template_file" "appspec_content" {
             TaskDefinition: ${aws_ecs_task_definition.frontend_task.arn}
             LoadBalancerInfo:
               ContainerName: app
-              ContainerPort: 3001
+              ContainerPort: 3000
   EOT
 }
 
