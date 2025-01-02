@@ -26,29 +26,24 @@ resource "aws_alb_listener" "l_80_redirect" {
   protocol          = "HTTP"
 
   default_action {
-    type = "redirect"
-    
-    redirect {
-      protocol = "HTTPS"
-      port     = "443"
-      status_code = "HTTP_301"
-    }
-  }
-}
-
-#Frontend 443
-resource "aws_alb_listener" "l_80" {
-  load_balancer_arn = aws_lb.app_lb.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "" # Replace with your ACM certificate ARN
-
-  default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.tg[0].arn
   }
 }
+
+#Frontend 443
+# resource "aws_alb_listener" "l_80" {
+#   load_balancer_arn = aws_lb.app_lb.arn
+#   port              = 443
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"
+#   certificate_arn   = "" # Replace with your ACM certificate ARN
+
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.tg[0].arn
+#   }
+# }
 
 # Frontend 8080
 resource "aws_alb_listener" "l_8080" {
@@ -64,17 +59,17 @@ resource "aws_alb_listener" "l_8080" {
 
 # These are the backend listeners
 # backend 443
-resource "aws_alb_listener" "backend_80" {
-  load_balancer_arn = aws_lb.backend_lb.id
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = ""
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.backend[0].arn
-  }
-  }
+# resource "aws_alb_listener" "backend_80" {
+#   load_balancer_arn = aws_lb.backend_lb.id
+#   port              = 443
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"
+#   certificate_arn   = ""
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.backend[0].arn
+#   }
+#   }
 
   # backend 8080
 
@@ -95,12 +90,7 @@ resource "aws_alb_listener" "l_80_backend_redirect" {
   protocol          = "HTTP"
   
   default_action {
-    type = "redirect"
-    
-    redirect {
-      protocol = "HTTPS"
-      port     = "443"
-      status_code = "HTTP_301"
-    }
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tg[0].arn
   }
 }
