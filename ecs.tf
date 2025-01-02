@@ -152,7 +152,7 @@ resource "local_file" "appspec_yaml" {
 
 # Upload appspec.yaml to S3
 resource "aws_s3_object" "appspec_yaml_s3" {
-  bucket = "deployment-bckt-europe"  # Replace with your S3 bucket name
+  bucket = "deployment-bckt-frontend"  # Replace with your S3 bucket name
   key    = "appspec.yaml"
   source = local_file.appspec_yaml.filename
   acl    = "private"
@@ -187,7 +187,7 @@ resource "local_file" "backend_appspec_yaml" {
 
 # Upload appspec.yaml to S3
 resource "aws_s3_object" "backend_appspec_yaml_s3" {
-  bucket = "deployment-bckt-europe-backend"  # Replace with your S3 bucket name
+  bucket = "deployment-bckt-backend"  # Replace with your S3 bucket name
   key    = "backend_appspec.yaml"
   source = local_file.backend_appspec_yaml.filename
   acl    = "private"
