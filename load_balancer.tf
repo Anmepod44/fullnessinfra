@@ -42,7 +42,7 @@ resource "aws_alb_listener" "l_80" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn:aws:acm:eu-north-1:038462779186:certificate/c65ef6dd-213b-4f19-ac6f-f7683c9b66d0" # Replace with your ACM certificate ARN
+  certificate_arn   = "" # Replace with your ACM certificate ARN
 
   default_action {
     type             = "forward"
@@ -69,7 +69,7 @@ resource "aws_alb_listener" "backend_80" {
   port              = 443
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn:aws:acm:eu-north-1:038462779186:certificate/cbe8346b-d43f-4af5-9ddd-b890c0043d65"
+  certificate_arn   = ""
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.backend[0].arn
