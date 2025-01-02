@@ -113,7 +113,7 @@ variable "green_instance_count" {
 variable "ecs_task_memory" {
   description = "Memory allocated for the ECS task"
   type        = number
-  default     = 128
+  default     = 512
 }
 
 variable "ecs_task_cpu" {

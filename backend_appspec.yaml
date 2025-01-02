@@ -3,7 +3,7 @@ Resources:
   - TargetService:
       Type: AWS::ECS::Service
       Properties:
-        TaskDefinition: arn:aws:ecs:eu-north-1:971422695416:task-definition/backend-task:3
+        TaskDefinition: arn:aws:ecs:eu-north-1:971422695416:task-definition/backend-task:5
         LoadBalancerInfo:
           ContainerName: app
           ContainerPort: 5001
