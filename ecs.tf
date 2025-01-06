@@ -57,7 +57,7 @@ resource "aws_ecs_service" "backend" {
   load_balancer {
     target_group_arn = aws_lb_target_group.backend[0].arn  # First target group for port 80
     container_name   = "app"
-    container_port   = 5001
+    container_port   = 8000
   }
 
   deployment_controller {
@@ -114,7 +114,7 @@ resource "aws_ecs_task_definition" "backend_task" {
     image     = "${aws_ecr_repository.backend_app.repository_url}:latest"
     essential = true
     portMappings = [{
-      containerPort = 5001
+      containerPort = 8000
     }]
     logConfiguration = {
       logDriver = "awslogs"
@@ -175,7 +175,7 @@ data "template_file" "appspec_backend" {
             TaskDefinition: ${aws_ecs_task_definition.backend_task.arn}
             LoadBalancerInfo:
               ContainerName: app
-              ContainerPort: 5001
+              ContainerPort: 8000
   EOT
 }
 
