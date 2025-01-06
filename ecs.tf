@@ -77,7 +77,7 @@ resource "aws_ecs_service" "backend" {
 resource "aws_ecs_task_definition" "frontend_task" {
   family                   = "frontend-task"
   requires_compatibilities = ["EC2"]
-  memory                   = var.ecs_task_memory
+  memory                   = var.front_ecs_task_memory
   cpu                      = var.ecs_task_cpu
   execution_role_arn       = aws_iam_role.app_task_role.arn
 

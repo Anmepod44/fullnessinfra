@@ -2,7 +2,7 @@
 resource "aws_launch_template" "ecs_launch_template" {
   name          = "ecs-launch-template"
   image_id      = data.aws_ami.ecs_ami.id
-  instance_type = "t3.small"  # Adjust as needed
+  instance_type = "t3.medium"  # Adjust as needed
   iam_instance_profile {
     name = aws_iam_instance_profile.ecs_instance_profile.name
   }
